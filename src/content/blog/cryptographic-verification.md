@@ -1,3 +1,12 @@
+---
+title: "How Cryptographic Verification Keeps You Safe"
+author: "Alex Rivera"
+date: "2024-01-10"
+readTime: "12 min read"
+category: "Security"
+description: "Learn how Zapstore uses cryptographic signatures to ensure every app you install is exactly what the developer intended, with no tampering or malicious modifications."
+---
+
 # How Cryptographic Verification Keeps You Safe
 
 *January 10, 2024 • By Alex Rivera*

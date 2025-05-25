@@ -1,39 +1,8 @@
 <script>
 	import { Calendar, Clock, ArrowRight } from 'lucide-svelte';
 	
-	// In a real app, this would come from a CMS or markdown files
-	const posts = [
-		{
-			id: 1,
-			slug: 'introducing-zapstore',
-			title: 'Introducing Zapstore: The Open App Marketplace',
-			excerpt: 'Today we\'re excited to announce Zapstore, a revolutionary approach to app distribution that puts users and developers first. Built on the nostr protocol, Zapstore enables direct connections between creators and their communities.',
-			author: 'Zapstore Team',
-			date: '2024-01-15',
-			readTime: '5 min read',
-			category: 'Announcement'
-		},
-		{
-			id: 2,
-			slug: 'cryptographic-verification',
-			title: 'How Cryptographic Verification Protects Users',
-			excerpt: 'Learn how Zapstore uses cryptographic signatures to ensure every app you install is exactly what the developer intended, with no tampering or malicious modifications.',
-			author: 'Security Team',
-			date: '2024-01-10',
-			readTime: '8 min read',
-			category: 'Security'
-		},
-		{
-			id: 3,
-			slug: 'nostr-protocol-deep-dive',
-			title: 'Deep Dive: How Nostr Powers Zapstore',
-			excerpt: 'A deep dive into how the nostr protocol powers Zapstore\'s decentralized architecture, enabling censorship-resistant app distribution and social discovery.',
-			author: 'Engineering Team',
-			date: '2024-01-05',
-			readTime: '12 min read',
-			category: 'Technical'
-		}
-	];
+	export let data;
+	$: posts = data.posts;
 </script>
 
 <svelte:head>
@@ -77,7 +46,7 @@
 						</h2>
 						
 						<p class="text-muted-foreground">
-							{post.excerpt}
+							{post.description || post.content?.substring(0, 200) + '...'}
 						</p>
 						
 						<div class="flex items-center justify-between">

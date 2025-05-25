@@ -1,3 +1,12 @@
+---
+title: "Introducing Zapstore: The Open App Marketplace"
+author: "Sarah Chen"
+date: "2024-01-15"
+readTime: "8 min read"
+category: "Announcement"
+description: "We're thrilled to announce Zapstore, a revolutionary approach to app distribution that puts users and developers first. Built on the nostr protocol, Zapstore enables direct connections between creators and their communities without intermediaries."
+---
+
 # Introducing Zapstore: The Open App Marketplace
 
 *January 15, 2024 • By Sarah Chen*
