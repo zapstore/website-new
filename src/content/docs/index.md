@@ -21,7 +21,7 @@ Choose a topic from the navigation menu to learn more about Zapstore. We recomme
 ### Quick Links
 
 - [Quick Start Guide](/docs/quickstart) - Get up and running in 5 minutes
-- [Architecture Overview](/docs/architecture) - Learn how Zapstore works under the hood
+- [Architecture Overview](/docs/core/architecture) - Learn how Zapstore works under the hood
 - [SDK Reference](/docs/sdk) - Complete API documentation for developers
 - [Security Best Practices](/docs/security) - Keep your apps and users safe
 

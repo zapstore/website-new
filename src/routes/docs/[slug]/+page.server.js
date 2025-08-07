@@ -4,22 +4,16 @@ import { error } from '@sveltejs/kit';
 // export const prerender = true;
 
 export async function load({ params }) {
-	const slug = params.slug || '';
+	// Simple test to see if the route works
+	const slug = params.slug ? params.slug.join('/') : '';
 	
-	try {
-		const content = await getMarkdownContent(slug);
-		
-		if (!content) {
-			throw error(404, 'Page not found');
+	return {
+		content: {
+			title: `Test Page for: ${slug}`,
+			html: `<h1>Test Page</h1><p>Slug: ${slug}</p><p>Params: ${JSON.stringify(params)}</p>`,
+			slug
 		}
-		
-		return {
-			content
-		};
-	} catch (err) {
-		console.error('Error loading content:', err);
-		throw err;
-	}
+	};
 }
 
 // export async function entries() {
