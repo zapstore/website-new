@@ -1,27 +1,44 @@
 <script>
-	import { ArrowRight, Shield, Zap, Users, Code, Lock, Globe } from 'lucide-svelte';
-	import FeatureCard from '$lib/components/FeatureCard.svelte';
-	import CodeDemo from '$lib/components/CodeDemo.svelte';
+	import {
+		ArrowRight,
+		Shield,
+		Zap,
+		Users,
+		Code,
+		Lock,
+		Globe,
+	} from "lucide-svelte";
+	import FeatureCard from "$lib/components/FeatureCard.svelte";
+	import CodeDemo from "$lib/components/CodeDemo.svelte";
 </script>
 
 <svelte:head>
 	<title>Zapstore - The Open App Marketplace</title>
-	<meta name="description" content="Discover, install, and manage applications from the open marketplace. Built on nostr, Zapstore puts users and developers first with cryptographic verification and zero platform fees." />
+	<meta
+		name="description"
+		content="Discover, install, and manage applications from the open marketplace. Built on nostr, Zapstore puts users and developers first with cryptographic verification and zero platform fees."
+	/>
 </svelte:head>
 
 <!-- Hero Section -->
 <section class="relative overflow-hidden">
-	<div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent"></div>
+	<div
+		class="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent"
+	></div>
 	<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
 		<div class="relative z-10 max-w-4xl mx-auto text-center">
-			<h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-6">
-				The Open Marketplace for
+			<h1
+				class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-6"
+			>
+				The Open Marketplace For
 				<span class="gradient-text"> Trusted Apps</span>
 			</h1>
-			<p class="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-				Everything you install comes from trusted sources and is cryptographically verified. 
-				Not satisfied with the default? Choose your own curators, or mix and match! 
-				Censorship has no place in our world.
+			<p
+				class="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+			>
+				Everything you install comes from trusted sources and is
+				cryptographically verified. Not satisfied with the default? Choose your
+				own curators, or mix and match! Censorship has no place in our world.
 			</p>
 			<div class="flex flex-col sm:flex-row gap-4 justify-center">
 				<a
@@ -53,7 +70,7 @@
 				A marketplace that respects your choices and empowers developers
 			</p>
 		</div>
-		
+
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 			<FeatureCard
 				icon={Shield}
@@ -98,27 +115,39 @@
 					Integrate in Minutes
 				</h2>
 				<p class="text-lg text-muted-foreground mb-6">
-					Our SDK makes it simple to integrate Zapstore into your applications. 
-					Handle app discovery, installation, and payments with just a few lines of code.
+					Our SDK makes it simple to integrate Zapstore into your applications.
+					Handle app discovery, installation, and payments with just a few lines
+					of code.
 				</p>
 				<ul class="space-y-3 mb-8">
 					<li class="flex items-start">
-						<div class="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+						<div
+							class="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5"
+						>
 							<div class="h-2 w-2 rounded-full bg-primary"></div>
 						</div>
-						<span class="ml-3 text-muted-foreground">Simple, intuitive API</span>
+						<span class="ml-3 text-muted-foreground">Simple, intuitive API</span
+						>
 					</li>
 					<li class="flex items-start">
-						<div class="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+						<div
+							class="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5"
+						>
 							<div class="h-2 w-2 rounded-full bg-primary"></div>
 						</div>
-						<span class="ml-3 text-muted-foreground">Full TypeScript support</span>
+						<span class="ml-3 text-muted-foreground"
+							>Full TypeScript support</span
+						>
 					</li>
 					<li class="flex items-start">
-						<div class="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+						<div
+							class="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5"
+						>
 							<div class="h-2 w-2 rounded-full bg-primary"></div>
 						</div>
-						<span class="ml-3 text-muted-foreground">Comprehensive documentation</span>
+						<span class="ml-3 text-muted-foreground"
+							>Comprehensive documentation</span
+						>
 					</li>
 				</ul>
 				<a
@@ -139,14 +168,16 @@
 <!-- CTA Section -->
 <section class="py-24 border-t border-border/40">
 	<div class="container mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-12 lg:p-16">
+		<div
+			class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-12 lg:p-16"
+		>
 			<div class="relative z-10 max-w-2xl">
 				<h2 class="text-3xl sm:text-4xl font-extra-bold mb-4">
 					Ready to Join the Open Marketplace?
 				</h2>
 				<p class="text-lg text-muted-foreground mb-8">
-					With our growing catalog, you will never run out of great apps. 
-					Start discovering trusted applications today.
+					With our growing catalog, you will never run out of great apps. Start
+					discovering trusted applications today.
 				</p>
 				<div class="flex flex-col sm:flex-row gap-4">
 					<a
@@ -164,10 +195,14 @@
 					</a>
 				</div>
 			</div>
-			<div class="absolute right-0 top-0 -translate-y-12 translate-x-12 transform">
+			<div
+				class="absolute right-0 top-0 -translate-y-12 translate-x-12 transform"
+			>
 				<div class="h-64 w-64 rounded-full bg-primary/10 blur-3xl"></div>
 			</div>
-			<div class="absolute bottom-0 left-0 -translate-x-12 translate-y-12 transform">
+			<div
+				class="absolute bottom-0 left-0 -translate-x-12 translate-y-12 transform"
+			>
 				<div class="h-64 w-64 rounded-full bg-primary/10 blur-3xl"></div>
 			</div>
 		</div>
