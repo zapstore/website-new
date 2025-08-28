@@ -2,19 +2,23 @@
 	import { onMount } from 'svelte';
 	
 	let typed = '';
-	const code = `import { Zapstore } from '@zapstore/sdk';
+	const code = `# .env (optional)
+SIGN_WITH=NIP07
 
-const store = new Zapstore({
-	relays: ['wss://relay.zapstore.app'],
-	signer: yourSigner
-});
+# zapstore.yaml
+repository: https://github.com/your/repo
+assets:
+  - .*.apk
+remote_metadata:
+  - playstore
+  - fdroid
+  - github
 
-// Publish your app
-await store.publish({
-	name: "My Awesome App",
-	version: "1.0.0",
-	description: "A revolutionary productivity tool"
-});`;
+# publish to relays (requires whitelist)
+$ zapstore publish -c zapstore.yaml
+
+# or, with a local secret for one-off
+$ SIGN_WITH=176fa8c7... zapstore publish`;
 	
 	onMount(() => {
 		let i = 0;

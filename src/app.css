@@ -278,6 +278,10 @@ body {
 .font-sans { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
 .font-mono { font-family: 'Geist Mono', monospace; }
 
+/* Geist font utilities */
+.font-geist-sans { font-family: 'Geist Sans', system-ui, -apple-system, sans-serif; }
+.font-geist-mono { font-family: 'Geist Mono', monospace; }
+
 .bg-primary\/10 { background-color: hsl(var(--primary) / 0.1); }
 .bg-primary\/20 { background-color: hsl(var(--primary) / 0.2); }
 .bg-primary\/5 { background-color: hsl(var(--primary) / 0.05); }
@@ -324,4 +328,108 @@ body {
 
 /* Extra bold font weights for main headings */
 .font-black { font-weight: 900; }
-.font-extra-bold { font-weight: 800; } 
+.font-extra-bold { font-weight: 800; }
+
+/* Floating App Icons Animation */
+.floating-icon {
+	animation: float 6s ease-in-out infinite;
+	transform: rotate(var(--tilt));
+	animation-delay: var(--delay);
+}
+
+@keyframes float {
+	0%, 100% {
+		transform: translateY(0px) rotate(var(--tilt));
+	}
+	50% {
+		transform: translateY(-20px) rotate(var(--tilt));
+	}
+}
+
+/* Hover effect for floating icons */
+.floating-icon:hover {
+	animation-play-state: paused;
+	transform: scale(1.1) rotate(var(--tilt));
+	transition: transform 0.3s ease;
+}
+
+/* Flowing particles animation */
+@keyframes flow-down {
+	0% {
+		transform: translateY(-100px) scale(0);
+		opacity: 0;
+	}
+	50% {
+		opacity: 0.6;
+	}
+	100% {
+		transform: translateY(200px) scale(1);
+		opacity: 0;
+	}
+}
+
+/* Apply flowing animation to particles */
+.flowing-particle {
+	animation: flow-down 4s ease-in-out infinite;
+}
+
+/* Scrolling app icons animation */
+@keyframes scroll-left {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
+}
+
+.animate-scroll-left {
+	animation: scroll-left 45s linear infinite;
+}
+
+/* Pause animation on hover for better UX */
+.animate-scroll-left:hover {
+	animation-play-state: paused;
+}
+
+/* Floating app icons with staggered positioning */
+.floating-app-icon {
+	transform: translateY(var(--float-offset, 0px));
+	animation: float-gentle 6s ease-in-out infinite;
+	animation-delay: var(--float-delay, 0s);
+}
+
+@keyframes float-gentle {
+	0%, 100% {
+		transform: translateY(var(--float-offset, 0px));
+	}
+	50% {
+		transform: translateY(calc(var(--float-offset, 0px) - 8px));
+	}
+}
+
+/* Hover effect for app icons */
+.floating-app-icon:hover {
+	animation-play-state: paused;
+	transform: translateY(calc(var(--float-offset, 0px) - 4px)) scale(1.05);
+	transition: transform 0.3s ease;
+} 
+
+/* Append: subtle hero animations and utilities */
+@keyframes subtle-pan {
+  0% { background-position: 0 0; }
+  100% { background-position: 48px 48px; }
+}
+
+.animate-subtle-pan {
+  animation: subtle-pan 18s linear infinite;
+}
+
+@keyframes slow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+.animate-slow-pulse {
+  animation: slow-pulse 6s ease-in-out infinite;
+} 

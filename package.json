@@ -35,6 +35,7 @@
 		"lucide-svelte": "^0.511.0",
 		"marked": "^15.0.12",
 		"nostr-tools": "^2.13.0",
-		"prismjs": "^1.30.0"
+		"prismjs": "^1.30.0",
+		"svelte-particles": "^2.12.0"
 	}
 }
