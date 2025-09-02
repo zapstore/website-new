@@ -1,5 +1,6 @@
 <script>
 	import { Github, Twitter, MessageSquare } from 'lucide-svelte';
+	import { assets } from '$app/paths';
 </script>
 
 <footer class="border-t border-border/40 bg-background">
@@ -8,7 +9,7 @@
 			<!-- Brand -->
 			<div class="col-span-1 md:col-span-2">
 				<div class="flex items-center space-x-3 mb-4">
-					<img src="/images/logo-dark.svg" alt="Zapstore" class="h-6 w-auto" />
+					<img src={`${assets}/images/logo-dark.svg`} alt="Zapstore" class="h-6 w-auto" />
 					<span class="font-semibold text-xl">Zapstore</span>
 				</div>
 				<p class="text-muted-foreground text-sm max-w-md">

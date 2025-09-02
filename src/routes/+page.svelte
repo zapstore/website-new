@@ -124,53 +124,53 @@
 			</div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
             <div class="rounded-xl border border-white/10 bg-black/40 p-8">
-                <div class="mb-4">
-                    <img src={`${assets}/images/app/SignedBy.png`} alt="Verified Developers" class="w-full h-40 object-cover rounded-lg border border-white/10" />
-                </div>
+                <div class="mb-4 overflow-hidden rounded-lg">
+                    <img src={`${assets}/images/App/Features-hompage/Signature.png`} alt="Verified Developers" class="block w-full h-24 object-contain" />
+							</div>
                 <div class="flex items-center gap-4 mb-4">
                     <div class="h-9 w-9 rounded-lg border border-white/10 bg:white/5 flex items-center justify-center">
                         <Shield class="h-5 w-5 text-white" />
-        </div>
+						</div>
                     <h3 class="text-xl font-semibold text-white">Verified Developers</h3>
-                            </div>
+					</div>
                 <p class="text-sm text-gray-400">Know who builds your apps. Every app is cryptographically signed for transparency and trust.</p>
-                        </div>
+				</div>
             <div class="rounded-xl border border-white/10 bg-black/40 p-8">
-                <div class="mb-4">
-                    <img src={`${assets}/images/app/WebOfTrust.png`} alt="Web of Trust" class="w-full h-40 object-cover rounded-lg border border-white/10" />
+                <div class="mb-4 overflow-hidden rounded-lg">
+                    <img src={`${assets}/images/App/Features-hompage/WebOfTrustFeature.png`} alt="Web of Trust" class="block w-full h-24 object-contain" />
                 </div>
                 <div class="flex items-center gap-4 mb-4">
                     <div class="h-9 w-9 rounded-lg border border-white/10 bg-white/5 flex items:center justify-center">
                         <Users class="h-5 w-5 text-white" />
-                    </div>
+			</div>
                     <h3 class="text-xl font-semibold text:white">Web of Trust</h3>
-                </div>
+					</div>
                 <p class="text-sm text-gray-400">Powered by Nostr's decentralized protocol, vetted by a community-driven trust network.</p>
-            </div>
+				</div>
             <div class="rounded-xl border border-white/10 bg-black/40 p-8">
-                <div class="mb-4">
-                    <img src={`${assets}/images/app/zap this release.png`} alt="Support Creators" class="w-full h-40 object-cover rounded-lg border border-white/10" />
-                </div>
+                <div class="mb-4 overflow-hidden rounded-lg">
+                    <img src={`${assets}/images/App/Features-hompage/ZapThisRelease.png`} alt="Support Creators" class="block w-full h-24 object-contain" />
+						</div>
                 <div class="flex items-center gap-4 mb-4">
                     <div class="h-9 w-9 rounded-lg border border-white/10 bg-white/5 flex items:center justify-center">
                         <Zap class="h-5 w-5 text-white" />
-                            </div>
+					</div>
                     <h3 class="text-xl font-semibold text:white">Support Creators</h3>
-                        </div>
+				</div>
                 <p class="text-sm text-gray-400">Direct Lightning payments empower developers in the Nostr ecosystem.</p>
-                    </div>
+					</div>
             <div class="rounded-xl border border-white/10 bg-black/40 p-8">
-                <div class="mb-4">
-                    <img src={`${assets}/images/app/Zapstore_main.png`} alt="Decentralized Freedom" class="w-full h-40 object-cover rounded-lg border border-white/10" />
-                </div>
+                <div class="mb-4 overflow-hidden rounded-lg">
+                    <img src={`${assets}/images/App/Features-hompage/Collections.png`} alt="Decentralized Freedom" class="block w-full h-24 object-contain" />
+					</div>
                 <div class="flex items-center gap-4 mb-4">
                     <div class="h-9 w-9 rounded-lg border border-white/10 bg-white/5 flex items:center justify-center">
                         <Globe class="h-5 w-5 text:white" />
-                </div>
+						</div>
                     <h3 class="text-xl font-semibold text:white">Decentralized Freedom</h3>
-            </div>
+					</div>
                 <p class="text-sm text-gray-400">No gatekeepers. Discover apps in a truly open and censorship-resistant store.</p>
-            </div>
+			</div>
 		</div>
 	</div>
 </section>
@@ -178,7 +178,7 @@
 <!-- Minimal Showcase Section (reverted back above) -->
 <section class="relative overflow-hidden bg-black">
     <!-- Background tuned to match Nostr Relays style -->
-    <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(88, 28, 135, 0.18) 0%, rgba(59, 7, 100, 0.22) 40%, rgba(23, 0, 46, 0.28) 100%);"></div>
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(88, 28, 135, 0.32) 0%, rgba(59, 7, 100, 0.22) 40%, rgba(23, 0, 46, 0.28) 100%);"></div>
     <div class="absolute inset-0" style="background: radial-gradient(800px 400px at 50% 20%, rgba(147, 51, 234, 0.10), transparent 60%)"></div>
     <div class="absolute inset-0 pointer-events-none">
         <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none">
@@ -200,13 +200,13 @@
             <rect width="100%" height="100%" fill="url(#discoverMesh)" />
             <rect width="100%" height="100%" fill="url(#discoverVignette2)" style="mix-blend-mode:multiply; opacity:0.35;" />
         </svg>
-    </div>
+	</div>
 	<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div class="max-w-5xl mx-auto">
             <div class="relative p-10 md:p-14">
                 <div class="mx-auto flex flex-col items-center text-center gap-6">
                     <div class="flex items-center justify-center h-16 w-16 rounded-xl border border-white/10 bg-black/60">
-                        <img src="/images/logo-dark.svg" alt="Zapstore" class="h-8 w-auto" />
+                        <img src={`${assets}/images/logo-dark.svg`} alt="Zapstore" class="h-8 w-auto" />
 						</div>
                     <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight">Discover trusted apps</h2>
                     <p class="text-base md:text-lg text-gray-400 max-w-2xl leading-relaxed">A curated, open marketplace. Neutral, secure, and designed for builders and power users.</p>
@@ -551,7 +551,7 @@
 			<div class="flex flex-col items-center text-center">
 				<div class="w-24 h-24 mb-4 flex items-center justify-center">
 					<div class="w-20 h-20 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center">
-						<img src="/images/logo-dark.svg" alt="Zapstore" class="h-10 w-auto" />
+						<img src={`${assets}/images/logo-dark.svg`} alt="Zapstore" class="h-10 w-auto" />
 					</div>
 				</div>
 				<h3 class="text-xl font-semibold text-white mb-2">Zapstore</h3>
@@ -562,7 +562,7 @@
 			<div class="flex flex-col items-center text-center">
 				<div class="w-24 h-24 mb-4 flex items-center justify-center">
 					<div class="w-20 h-20 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center">
-						<img src="/images/GrapheneOS-logo" alt="GrapheneOS" class="h-10 w-auto" />
+						<img src={`${assets}/images/GrapheneOS-logo.jpg`} alt="GrapheneOS" class="h-10 w-auto" />
 					</div>
 				</div>
 				<h3 class="text-xl font-semibold text-white mb-2">GrapheneOS</h3>

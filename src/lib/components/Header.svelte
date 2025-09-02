@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import { Menu, X } from 'lucide-svelte';
 	import { cn } from '$lib/utils';
+	import { assets } from '$app/paths';
 	
 	let mobileMenuOpen = false;
 	
@@ -20,7 +21,7 @@
 			<!-- Logo -->
 			<div class="flex items-center">
 				<a href="/" class="flex items-center space-x-3">
-					<img src="/images/logo-dark.svg" alt="Zapstore" class="h-6 w-auto" />
+					<img src={`${assets}/images/logo-dark.svg`} alt="Zapstore" class="h-6 w-auto" />
 					<span class="font-semibold text-xl">Zapstore</span>
 				</a>
 			</div>
