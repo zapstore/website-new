@@ -100,191 +100,91 @@
 	</div>
 </section>
 
-<!-- Key Features (moved above Discover apps) -->
 <section class="relative overflow-hidden py-20">
 	<div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 		<div class="text-center mb-14 max-w-4xl mx-auto">
 			<h2
 				class="text-4xl sm:text-5xl font-extrabold mb-4 text:white leading-tight"
 			>
-				Uncensorable publishing, secure downloads
+				Secure by default, always uncensored.
 			</h2>
 			<p class="text-lg text-gray-400 leading-relaxed">
-				A minimal, secure marketplace that prioritizes clarity and verification.
+				Centralized app stores are walled gardens where a single gatekeeper
+				decides what gets in. Powered by Nostr, Zapstore is permissionless and
+				censorship-resistant. Anyone can publish and switch relays. To preserve
+				quality in an open network, we use web-of-trust and other metrics to
+				surface signal and obliterate spam.
 			</p>
 		</div>
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-			<div class="rounded-xl border border-white/10 bg-card p-8">
-				<div class="mb-4 overflow-hidden rounded-lg">
-					<img
-						src={`${assets}/images/App/Features-hompage/Signature.png`}
-						alt="Verified Developers"
-						class="block w-full h-24 object-contain"
-					/>
-				</div>
-				<div class="flex items-center gap-4 mb-4">
-					<div
-						class="h-9 w-9 rounded-lg border border-white/10 bg:white/5 flex items-center justify-center"
-					>
-						<Shield class="h-5 w-5 text-white" />
+		<div
+			class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+		>
+			<!-- Secure by default -->
+			<div class="group relative">
+				<div class="h-full rounded-2xl p-6 border border-white/10 bg-card">
+					<div class="relative z-10">
+						<div class="relative mb-4">
+							<div
+								class="relative w-12 h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center"
+							>
+								<Lock class="h-6 w-6 text-white" />
+							</div>
+						</div>
+						<h3 class="text-lg font-semibold text-white mb-2">
+							Secure by default
+						</h3>
+						<p class="text-gray-400 leading-relaxed text-sm">
+							Everything you install comes from your trusted sources and is
+							cryptographically verified. Not satisfied with our default? Choose
+							your own curators, or mix and match! Censorship has no place.
+						</p>
 					</div>
-					<h3 class="text-xl font-semibold text-white">Verified Developers</h3>
 				</div>
-				<p class="text-sm text-gray-400">
-					Know who builds your apps. Every app is cryptographically signed for
-					transparency and trust.
-				</p>
 			</div>
-			<div class="rounded-xl border border-white/10 bg-card p-8">
-				<div class="mb-4 overflow-hidden rounded-lg">
-					<img
-						src={`${assets}/images/App/Features-hompage/WebOfTrustFeature.png`}
-						alt="Web of Trust"
-						class="block w-full h-24 object-contain"
-					/>
-				</div>
-				<div class="flex items-center gap-4 mb-4">
-					<div
-						class="h-9 w-9 rounded-lg border border-white/10 bg-white/5 flex items:center justify-center"
-					>
-						<Users class="h-5 w-5 text-white" />
-					</div>
-					<h3 class="text-xl font-semibold text:white">Web of Trust</h3>
-				</div>
-				<p class="text-sm text-gray-400">
-					Powered by Nostr's decentralized protocol, vetted by a
-					community-driven trust network.
-				</p>
-			</div>
-			<div class="rounded-xl border border-white/10 bg-card p-8">
-				<div class="mb-4 overflow-hidden rounded-lg">
-					<img
-						src={`${assets}/images/App/Features-hompage/ZapThisRelease.png`}
-						alt="Support Creators"
-						class="block w-full h-24 object-contain"
-					/>
-				</div>
-				<div class="flex items-center gap-4 mb-4">
-					<div
-						class="h-9 w-9 rounded-lg border border-white/10 bg-white/5 flex items:center justify-center"
-					>
-						<Zap class="h-5 w-5 text-white" />
-					</div>
-					<h3 class="text-xl font-semibold text:white">Support Creators</h3>
-				</div>
-				<p class="text-sm text-gray-400">
-					Direct Lightning payments empower developers in the Nostr ecosystem.
-				</p>
-			</div>
-			<div class="rounded-xl border border-white/10 bg-card p-8">
-				<div class="mb-4 overflow-hidden rounded-lg">
-					<img
-						src={`${assets}/images/App/Features-hompage/Collections.png`}
-						alt="Decentralized Freedom"
-						class="block w-full h-24 object-contain"
-					/>
-				</div>
-				<div class="flex items-center gap-4 mb-4">
-					<div
-						class="h-9 w-9 rounded-lg border border-white/10 bg-white/5 flex items:center justify-center"
-					>
-						<Globe class="h-5 w-5 text:white" />
-					</div>
-					<h3 class="text-xl font-semibold text:white">
-						Decentralized Freedom
-					</h3>
-				</div>
-				<p class="text-sm text-gray-400">
-					No gatekeepers. Discover apps in a truly open and censorship-resistant
-					store.
-				</p>
-			</div>
-		</div>
-	</div>
-</section>
 
-<!-- Minimal Showcase Section (reverted back above) -->
-<section class="relative overflow-hidden">
-	<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-		<div class="max-w-5xl mx-auto">
-			<div class="relative p-10 md:p-14">
-				<div class="mx-auto flex flex-col items-center text-center gap-6">
-					<h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
-						Discover apps
-					</h2>
-					<p
-						class="text-base md:text-lg text-gray-400 max-w-2xl leading-relaxed"
-					>
-						A curated, open marketplace. Neutral, secure, and designed for
-						builders and power users.
-					</p>
-					<div class="mt-6 w-full overflow-hidden">
-						{#if carouselLoading}
-							<div class="flex items-center justify-center py-6">
-								<div
-									class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-primary"
-								></div>
+			<!-- Relevant to you -->
+			<div class="group relative">
+				<div class="h-full rounded-2xl p-6 border border-white/10 bg-card">
+					<div class="relative z-10">
+						<div class="relative mb-4">
+							<div
+								class="relative w-12 h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center"
+							>
+								<Users class="h-6 w-6 text-white" />
 							</div>
-						{:else if carouselApps.length === 0}
-							<p class="text-sm text-gray-500">No apps found right now.</p>
-						{:else}
-							<div class="animate-scroll-left flex gap-4 w-[200%]">
-								<div class="flex gap-4">
-									{#each carouselApps.slice(0, 12) as app}
-										<a
-											href={getAppUrl(app)}
-											class="flex-none w-16 h-16 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 transition-colors inline-flex items-center justify-center"
-											title={app.name}
-										>
-											{#if app.icon}
-												<img
-													src={app.icon}
-													alt={app.name}
-													class="w-10 h-10 rounded object-cover"
-													loading="lazy"
-												/>
-											{:else}
-												<div class="w-8 h-8 rounded bg-gray-700"></div>
-											{/if}
-										</a>
-									{/each}
-								</div>
-								<div class="flex gap-4">
-									{#each carouselApps.slice(0, 12) as app}
-										<a
-											href={getAppUrl(app)}
-											class="flex-none w-16 h-16 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 transition-colors inline-flex items-center justify-center"
-											title={app.name}
-										>
-											{#if app.icon}
-												<img
-													src={app.icon}
-													alt={app.name}
-													class="w-10 h-10 rounded object-cover"
-													loading="lazy"
-												/>
-											{:else}
-												<div class="w-8 h-8 rounded bg-gray-700"></div>
-											{/if}
-										</a>
-									{/each}
-								</div>
-							</div>
-						{/if}
+						</div>
+						<h3 class="text-lg font-semibold text-white mb-2">
+							Relevant to you
+						</h3>
+						<p class="text-gray-400 leading-relaxed text-sm">
+							Supercharged by the nostr open protocol, recommendations come
+							right from your social connections — or use it in totally private
+							way. With our growing catalog, you will never run out of great
+							apps.
+						</p>
 					</div>
-					<div class="flex flex-col sm:flex-row gap-4">
-						<a
-							href="/apps"
-							class="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-						>
-							Browse apps
-							<ArrowRight class="ml-2 h-4 w-4" />
-						</a>
-						<a
-							href="/developers"
-							class="inline-flex items-center justify-center rounded-md border border-white/10 px-6 py-3 text-sm font-medium text-white/90 hover:bg-white/5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20"
-							>Publish your app</a
-						>
+				</div>
+			</div>
+
+			<!-- Support your devs -->
+			<div class="group relative">
+				<div class="h-full rounded-2xl p-6 border border-white/10 bg-card">
+					<div class="relative z-10">
+						<div class="relative mb-4">
+							<div
+								class="relative w-12 h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center"
+							>
+								<Zap class="h-6 w-6 text-white" />
+							</div>
+						</div>
+						<h3 class="text-lg font-semibold text-white mb-2">
+							Support your devs
+						</h3>
+						<p class="text-gray-400 leading-relaxed text-sm">
+							Connect with your favorite developers: send them direct feedback,
+							request features and support them through micropayments, all
+							without any middlemen.
+						</p>
 					</div>
 				</div>
 			</div>
@@ -292,7 +192,6 @@
 	</div>
 </section>
 
-<!-- Nostr Relays Section -->
 <section
 	class="relative py-20 border-t border-border/40 bg-background overflow-hidden"
 >
@@ -331,8 +230,12 @@
 							/>
 						</svg>
 					</div>
-					<h3 class="text-lg font-semibold text-white mb-2">User publishes</h3>
-					<p class="text-sm text-gray-400">Content is created and signed</p>
+					<h3 class="text-lg font-semibold text-white mb-2">
+						Developers publish
+					</h3>
+					<p class="text-sm text-gray-400">
+						App metadata is created and signed
+					</p>
 				</div>
 
 				<!-- Arrow 1 -->
@@ -371,7 +274,7 @@
 							/>
 						</svg>
 					</div>
-					<h3 class="text-lg font-semibold text-white mb-2">Relay transmits</h3>
+					<h3 class="text-lg font-semibold text-white mb-2">Relays transmit</h3>
 					<p class="text-sm text-gray-400">Content is broadcasted</p>
 				</div>
 
@@ -412,140 +315,7 @@
 						</svg>
 					</div>
 					<h3 class="text-lg font-semibold text-white mb-2">Users receive</h3>
-					<p class="text-sm text-gray-400">Content is delivered</p>
-				</div>
-			</div>
-		</div>
-
-		<!-- Available Functions -->
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-			<!-- Explore Public Relays -->
-			<div class="group relative">
-				<div class="h-full rounded-2xl p-6 border border-white/10 bg-card">
-					<div class="relative z-10">
-						<div class="relative mb-4">
-							<div
-								class="relative w-12 h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center"
-							>
-								<svg
-									class="h-6 w-6 text-white"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-									/>
-								</svg>
-							</div>
-						</div>
-						<h3 class="text-lg font-semibold text-white mb-2">
-							Explore public relays
-						</h3>
-						<p class="text-gray-400 leading-relaxed text-sm">
-							Discover and connect to public Nostr relays worldwide.
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<!-- Manage Favorites -->
-			<div class="group relative">
-				<div class="h-full rounded-2xl p-6 border border-white/10 bg-card">
-					<div class="relative z-10">
-						<div class="relative mb-4">
-							<div
-								class="relative w-12 h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center"
-							>
-								<svg
-									class="h-6 w-6 text-white"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-									/>
-								</svg>
-							</div>
-						</div>
-						<h3 class="text-lg font-semibold text-white mb-2">
-							Manage favorites
-						</h3>
-						<p class="text-gray-400 leading-relaxed text-sm">
-							Organize and manage your preferred relay connections.
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<!-- Recommend Relays -->
-			<div class="group relative">
-				<div class="h-full rounded-2xl p-6 border border-white/10 bg-card">
-					<div class="relative z-10">
-						<div class="relative mb-4">
-							<div
-								class="relative w-12 h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center"
-							>
-								<svg
-									class="h-6 w-6 text-white"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M7 11l5-5m0 0l5 5m-5-5v12"
-									/>
-								</svg>
-							</div>
-						</div>
-						<h3 class="text-lg font-semibold text-white mb-2">
-							Recommend & share
-						</h3>
-						<p class="text-gray-400 leading-relaxed text-sm">
-							Share trusted relays with the community and discover new ones.
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<!-- Private Relay -->
-			<div class="group relative">
-				<div class="h-full rounded-2xl p-6 border border-white/10 bg-card">
-					<div class="relative z-10">
-						<div class="relative mb-4">
-							<div
-								class="relative w-12 h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center"
-							>
-								<svg
-									class="h-6 w-6 text-white"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-									/>
-								</svg>
-							</div>
-						</div>
-						<h3 class="text-lg font-semibold text-white mb-2">Private relay</h3>
-						<p class="text-gray-400 leading-relaxed text-sm">
-							Configure and manage your own private relay for enhanced security.
-						</p>
-					</div>
+					<p class="text-sm text-gray-400">Apps are delivered and verified</p>
 				</div>
 			</div>
 		</div>
@@ -575,10 +345,10 @@
 						<ArrowRight class="ml-2 h-4 w-4" />
 					</a>
 					<a
-						href="/docs/quickstart"
+						href="/apps"
 						class="inline-flex items-center justify-center rounded-md border border-white/10 px-6 py-3 text-sm font-medium text-white/90 transition-colors hover:bg-white/5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20"
 					>
-						Quickstart guide
+						Browse apps
 					</a>
 				</div>
 			</div>

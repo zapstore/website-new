@@ -80,8 +80,8 @@
 					Distribute your apps directly to users and monetize instantly.
 				</p>
 				<p class="text-lg sm:text-xl text-muted-foreground mb-6">
-					No arbitrary rules, no identity checks, no platform fees or revenue
-					cuts. Your app, your community, your sats.
+					No arbitrary rules, no platform fees or revenue cuts, no KYC. Your
+					app, your community, your sats.
 				</p>
 				<div
 					class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
