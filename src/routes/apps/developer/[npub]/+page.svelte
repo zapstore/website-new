@@ -55,7 +55,7 @@
 	});
 
 	function getAppUrl(app) {
-		return `/apps/${getAppSlug(app.npub, app.dTag)}`;
+		return `/apps/${getAppSlug(app.pubkey, app.dTag)}`;
 	}
 </script>
 

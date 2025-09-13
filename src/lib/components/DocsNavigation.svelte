@@ -1,127 +1,70 @@
 <script>
-	import { page } from '$app/stores';
-	import { Menu, X, ChevronDown, ChevronRight, Book, Rocket, Code, Shield } from 'lucide-svelte';
-	import { cn } from '$lib/utils';
-	import { onMount } from 'svelte';
+    import DocsNavNode from './DocsNavNode.svelte';
+    import { page } from '$app/stores';
 
-	export let navigation = [];
-	export let mobileMenuOpen = false;
-	export let toggleMobileMenu = () => {};
-	
-	let expandedSections = {};
+    export let navigation = [];
+    export let mobileMenuOpen = false;
+    export let toggleMobileMenu = () => {};
 
-	// Icon mapping
-	const iconMap = {
-		Book,
-		Rocket,
-		Code,
-		Shield
-	};
+    let expanded = {};
 
-	// Auto-expand sections that contain the current page
-	$: {
-		if ($page.url.pathname && navigation.length > 0) {
-			const newExpanded = { ...expandedSections };
-			
-			navigation.forEach(section => {
-				const hasActivePage = section.items.some(item => 
-					isActiveLink(item.href) || 
-					(item.items && hasActiveChild(item.items))
-				);
-				
-				if (hasActivePage) {
-					newExpanded[section.title] = true;
-				}
-			});
-			
-			expandedSections = newExpanded;
-		}
-	}
+    function toggle(id) {
+        expanded[id] = !expanded[id];
+        expanded = { ...expanded };
+    }
 
-	// Handle escape key to close mobile menu
-	onMount(() => {
-		const handleKeydown = (e) => {
-			if (e.key === 'Escape' && mobileMenuOpen) {
-				toggleMobileMenu();
-			}
-		};
-		
-		document.addEventListener('keydown', handleKeydown);
-		return () => document.removeEventListener('keydown', handleKeydown);
-	});
+    $: currentPath = $page.url.pathname;
 
-	function toggleSection(sectionTitle) {
-		expandedSections[sectionTitle] = !expandedSections[sectionTitle];
-		expandedSections = { ...expandedSections };
-	}
-
-	function isActiveLink(href) {
-		return $page.url.pathname === href;
-	}
-
-	function hasActiveChild(items) {
-		return items.some(item => 
-			isActiveLink(item.href) || 
-			(item.items && hasActiveChild(item.items))
-		);
-	}
+    // Initialize expansion from frontmatter (sidebar.open) and active path
+    $: if (navigation && navigation.length) {
+        const next = {};
+        function traverse(nodes, ancestors = []) {
+            for (const node of nodes) {
+                if (node.expandedByDefault === true) {
+                    next[node.id] = true;
+                }
+                const isSelfActive = !!(node.href && currentPath === node.href);
+                const isDescActive = !!(node.href && currentPath.startsWith(node.href + '/'));
+                if (isSelfActive || isDescActive) {
+                    for (const a of ancestors) next[a.id] = true;
+                    if (node.children && node.children.length) next[node.id] = true;
+                }
+                if (node.children && node.children.length) {
+                    traverse(node.children, [...ancestors, node]);
+                }
+            }
+        }
+        traverse(navigation, []);
+        expanded = { ...expanded, ...next };
+    }
 </script>
 
 <!-- Mobile menu overlay -->
 {#if mobileMenuOpen}
-	<div 
-		class="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
-		on:click={toggleMobileMenu}
-		role="button"
-		tabindex="0"
-		on:keydown={(e) => e.key === 'Enter' && toggleMobileMenu()}
-	></div>
+    <div
+        class="lg:hidden fixed inset-0 z-40 bg-background/60 backdrop-blur-sm"
+        on:click={toggleMobileMenu}
+        role="button"
+        tabindex="0"
+        on:keydown={(e) => e.key === 'Enter' && toggleMobileMenu()}
+    ></div>
 {/if}
 
 <!-- Navigation sidebar -->
-<aside class={cn(
-	"fixed lg:sticky top-16 left-0 z-40 h-screen lg:h-auto w-80 lg:w-auto bg-background lg:bg-transparent border-r lg:border-r-0 border-border transform transition-transform duration-300 ease-in-out lg:transform-none overflow-y-auto custom-scrollbar",
-	mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-)}>
-	<nav class="p-6 lg:p-0 lg:sticky lg:top-24 space-y-6">
-		{#each navigation as section}
-			<div>
-				<!-- Section header with icon -->
-				<h3 class="flex items-center space-x-2 font-semibold text-sm mb-3">
-					{#if section.icon && iconMap[section.icon]}
-						<svelte:component this={iconMap[section.icon]} class="h-4 w-4" />
-					{:else}
-						<Book class="h-4 w-4" />
-					{/if}
-					<span>{section.title}</span>
-				</h3>
-				
-				<!-- Section items -->
-				<ul class="space-y-2">
-					{#each section.items as item}
-						<li>
-							<a 
-								href={item.href}
-								class={cn(
-									"block text-sm px-3 py-1.5 rounded-md transition-colors",
-									isActiveLink(item.href)
-										? "bg-primary/10 text-primary font-medium"
-										: "text-muted-foreground hover:text-foreground hover:bg-accent"
-								)}
-							>
-								{item.title}
-							</a>
-						</li>
-					{/each}
-				</ul>
-			</div>
-		{/each}
-	</nav>
+<aside class="fixed lg:sticky top-16 left-0 z-40 h-screen lg:h-auto w-80 lg:w-auto bg-transparent border-r lg:border-r-0 border-border overflow-y-auto lg:translate-x-0 {mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}">
+    <nav class="p-6 lg:p-0 lg:sticky lg:top-24">
+        <ul class="space-y-2">
+            {#each navigation as node}
+                <DocsNavNode node={node} {expanded} {toggle} />
+            {/each}
+        </ul>
+    </nav>
 </aside>
 
 <style>
-	/* Ensure mobile menu appears above other content */
-	aside {
-		-webkit-overflow-scrolling: touch;
-	}
-</style> 
+    aside {
+        -webkit-overflow-scrolling: touch;
+    }
+</style>
+
+

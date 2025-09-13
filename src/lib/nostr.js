@@ -1,9 +1,15 @@
 import { SimplePool } from 'nostr-tools/pool';
 import * as nip19 from 'nostr-tools/nip19';
-import { marked } from 'marked';
+// Note: marked removed, using simple fallback for renderMarkdown
 
 const RELAY_URL = 'wss://relay.zapstore.dev';
 const PROFILE_RELAY_URL = 'wss://relay.vertexlab.io';
+const SOCIAL_RELAYS = [
+	'wss://relay.damus.io',
+	'wss://relay.primal.net',
+	'wss://relay.nostr.band',
+	'wss://nos.lol'
+];
 const CONNECTION_TIMEOUT = 10000; // 10 seconds
 
 // Create a global pool instance
@@ -132,23 +138,25 @@ export function pubkeyToNpub(pubkey) {
 }
 
 /**
- * Renders markdown content to HTML
+ * Renders markdown content to HTML (simple fallback without marked)
  * @param {string} markdown - Markdown content
  * @returns {string} HTML content
  */
 export function renderMarkdown(markdown) {
+	if (!markdown) return '';
+	
 	try {
-		// Configure marked for security
-		marked.setOptions({
-			breaks: true,
-			gfm: true,
-			sanitize: false, // We'll handle sanitization elsewhere if needed
-		});
-		
-		return marked(markdown);
+		// Simple markdown-to-HTML conversion for basic formatting
+		// This is a minimal fallback - for complex markdown, use mdsvex
+		return markdown
+			.replace(/\n\n/g, '</p><p>') // Paragraphs
+			.replace(/\n/g, '<br>') // Line breaks
+			.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+			.replace(/\*(.*?)\*/g, '<em>$1</em>') // Italic
+			.replace(/`(.*?)`/g, '<code>$1</code>') // Inline code
+			.replace(/^(.*)$/, '<p>$1</p>'); // Wrap in paragraph
 	} catch (err) {
 		console.warn('Failed to parse markdown:', err);
-		// Return the original text if markdown parsing fails
 		return markdown.replace(/\n/g, '<br>');
 	}
 }
@@ -418,22 +426,48 @@ export function formatSize(size) {
 }
 
 /**
- * Generates an app URL slug from npub and d-tag
- * @param {string} npub - The author's npub
- * @param {string} dTag - The app's d-tag identifier  
- * @returns {string} URL slug
+ * Generates an app URL slug using naddr encoding
+ * @param {string} pubkey - Hex public key
+ * @param {string} dTag - App d-tag identifier
+ * @returns {string} URL slug as naddr
  */
-export function getAppSlug(npub, dTag) {
-	return `${npub}-${dTag}`;
+export function getAppSlug(pubkey, dTag) {
+	try {
+		return nip19.naddrEncode({
+			kind: 32267,
+			pubkey: pubkey,
+			identifier: dTag
+		});
+	} catch (err) {
+		console.warn('Failed to encode naddr:', err);
+		// Fallback to old format if encoding fails
+		const npub = pubkeyToNpub(pubkey);
+		return `${npub}-${dTag}`;
+	}
 }
 
 /**
  * Parses an app URL slug to extract pubkey and d-tag
- * @param {string} slug - URL slug in format npub-appid
+ * @param {string} slug - URL slug (naddr format or legacy npub-appid format)
  * @returns {Object} Object with pubkey and dTag properties
  */
 export function parseAppSlug(slug) {
-	// npub is always 63 characters (npub1 + 58 chars)
+	// Try to decode as naddr first
+	if (slug.startsWith('naddr1')) {
+		try {
+			const decoded = nip19.decode(slug);
+			if (decoded.type === 'naddr' && decoded.data.kind === 32267) {
+				return {
+					pubkey: decoded.data.pubkey,
+					dTag: decoded.data.identifier
+				};
+			}
+		} catch (err) {
+			console.warn('Failed to decode naddr, trying legacy format:', err);
+		}
+	}
+	
+	// Fallback to legacy npub-appid format for backward compatibility
 	const npubLength = 63;
 	
 	if (slug.length < npubLength + 2) { // +2 for dash and at least 1 char for appid
@@ -441,7 +475,7 @@ export function parseAppSlug(slug) {
 	}
 	
 	if (!slug.startsWith('npub1')) {
-		throw new Error('Invalid app URL format: must start with npub');
+		throw new Error('Invalid app URL format: must start with npub or naddr');
 	}
 
 	const npub = slug.substring(0, npubLength);
@@ -463,11 +497,192 @@ export function parseAppSlug(slug) {
 }
 
 /**
+ * Fetches zap events for a specific app
+ * @param {string} pubkey - The app publisher's public key
+ * @param {string} appId - The app's d-tag identifier
+ * @returns {Promise<Array>} Array of zap events
+ */
+export async function fetchAppZaps(pubkey, appId) {
+	return new Promise((resolve, reject) => {
+		try {
+			const pool = getPool();
+			
+			// Create the 'a' tag value for the app: 32267:pubkey:appId
+			const aTagValue = `32267:${pubkey}:${appId}`;
+			
+			const filter = {
+				kinds: [9735],
+				'#a': [aTagValue],
+				limit: 100
+			};
+
+			console.log('Fetching zaps with filter:', filter);
+
+			const zapEvents = [];
+			let eoseCount = 0;
+			const totalRelays = SOCIAL_RELAYS.length;
+			
+			// Use subscribe method with callback approach
+			const subscription = pool.subscribe(
+				SOCIAL_RELAYS,
+				filter,
+				{
+					onevent(event) {
+						console.log('Received zap event:', event.id);
+						zapEvents.push(parseZapEvent(event));
+					},
+					oneose() {
+						eoseCount++;
+						console.log(`EOSE received from ${eoseCount}/${totalRelays} relays`);
+						
+						// Wait for all relays to finish
+						if (eoseCount >= totalRelays) {
+							console.log('All relays finished, got', zapEvents.length, 'zaps');
+							
+							// Sort by creation date (newest first) and remove duplicates
+							const uniqueZaps = removeDuplicateZaps(zapEvents);
+							const sortedZaps = uniqueZaps.sort((a, b) => b.createdAt - a.createdAt);
+							
+							subscription.close();
+							resolve(sortedZaps);
+						}
+					},
+					onclose() {
+						if (eoseCount < totalRelays) {
+							console.log('Subscription closed before all relays finished');
+							const uniqueZaps = removeDuplicateZaps(zapEvents);
+							const sortedZaps = uniqueZaps.sort((a, b) => b.createdAt - a.createdAt);
+							resolve(sortedZaps);
+						}
+					}
+				}
+			);
+
+			// Set a timeout to close connection
+			setTimeout(() => {
+				if (eoseCount < totalRelays) {
+					console.log('Timeout reached for zap fetch');
+					subscription.close();
+					const uniqueZaps = removeDuplicateZaps(zapEvents);
+					const sortedZaps = uniqueZaps.sort((a, b) => b.createdAt - a.createdAt);
+					resolve(sortedZaps);
+				}
+			}, CONNECTION_TIMEOUT);
+
+		} catch (err) {
+			console.error('Error in fetchAppZaps:', err);
+			reject(err);
+		}
+	});
+}
+
+/**
+ * Parses a zap event into a usable object
+ * @param {Object} event - Raw zap event
+ * @returns {Object} Parsed zap object
+ */
+export function parseZapEvent(event) {
+	// Convert tags array to a more usable format
+	const tagMap = {};
+	event.tags.forEach(tag => {
+		if (tag.length >= 2) {
+			const [key, value] = tag;
+			if (!tagMap[key]) {
+				tagMap[key] = value;
+			}
+		}
+	});
+
+	// Extract amount from bolt11 invoice if available
+	let amount = 0;
+	const bolt11 = tagMap.bolt11;
+	if (bolt11) {
+		try {
+			// Simple regex to extract amount from bolt11 (this is a basic implementation)
+			const amountMatch = bolt11.match(/lnbc(\d+)([munp]?)/);
+			if (amountMatch) {
+				let value = parseInt(amountMatch[1]);
+				const unit = amountMatch[2];
+				
+				// Convert to millisats
+				switch (unit) {
+					case 'm': value *= 100000; break; // milli-bitcoin
+					case 'u': value *= 100; break;     // micro-bitcoin  
+					case 'n': value *= 0.1; break;    // nano-bitcoin
+					case 'p': value *= 0.0001; break; // pico-bitcoin
+					default: value *= 100000000; break; // bitcoin
+				}
+				amount = Math.floor(value);
+			}
+		} catch (e) {
+			console.warn('Failed to parse bolt11 amount:', e);
+		}
+	}
+
+	// Extract description (zap note content)
+	let description = '';
+	try {
+		const descriptionTag = event.tags.find(tag => tag[0] === 'description');
+		if (descriptionTag && descriptionTag[1]) {
+			const descEvent = JSON.parse(descriptionTag[1]);
+			description = descEvent.content || '';
+		}
+	} catch (e) {
+		console.warn('Failed to parse zap description:', e);
+	}
+
+	return {
+		id: event.id,
+		pubkey: event.pubkey,
+		npub: pubkeyToNpub(event.pubkey),
+		createdAt: event.created_at,
+		amount: amount, // in millisats
+		amountSats: Math.floor(amount / 1000), // in sats
+		description: description,
+		preimage: tagMap.preimage || '',
+		bolt11: bolt11 || '',
+		fullEvent: event
+	};
+}
+
+/**
+ * Removes duplicate zap events based on event ID
+ * @param {Array} zapEvents - Array of zap events
+ * @returns {Array} Array of unique zap events
+ */
+function removeDuplicateZaps(zapEvents) {
+	const seen = new Set();
+	return zapEvents.filter(zap => {
+		if (seen.has(zap.id)) {
+			return false;
+		}
+		seen.add(zap.id);
+		return true;
+	});
+}
+
+/**
+ * Formats satoshi amount to a human-readable string
+ * @param {number} sats - Amount in satoshis
+ * @returns {string} Formatted amount string
+ */
+export function formatSats(sats) {
+	if (sats >= 100000000) {
+		return `${(sats / 100000000).toFixed(2)} BTC`;
+	} else if (sats >= 1000000) {
+		return `${(sats / 1000000).toFixed(1)}M sats`;
+	} else if (sats >= 1000) {
+		return `${(sats / 1000).toFixed(1)}K sats`;
+	}
+	return `${sats} sats`;
+}
+
+/**
  * Closes the global pool and cleans up connections
  */
 export function closePool() {
 	if (pool) {
-		pool.close([RELAY_URL, PROFILE_RELAY_URL]);
+		pool.close([RELAY_URL, PROFILE_RELAY_URL, ...SOCIAL_RELAYS]);
 		pool = null;
 	}
 } 

@@ -1,11 +1,15 @@
-import { generateNavigation } from '$lib/server/docs.js';
+import { generateNavigation } from '$lib/content.js';
 
-// export const prerender = true;
+export const prerender = true;
 
 export async function load() {
-	const navigation = await generateNavigation();
-	
-	return {
-		navigation
-	};
-} 
+  try {
+    const navigation = await generateNavigation('docs');
+    return { navigation: navigation || [] };
+  } catch (error) {
+    console.error('Error loading docs layout (server):', error);
+    return { navigation: [] };
+  }
+}
+
+

@@ -3,6 +3,15 @@ export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   darkMode: 'class',
   theme: {
+    container: {
+      screens: {
+        sm: '600px',
+        md: '728px',
+        lg: '984px',
+        xl: '1120px',
+        '2xl': '1200px'
+      }
+    },
     extend: {
       colors: {
         border: 'hsl(var(--border))',
