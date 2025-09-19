@@ -87,7 +87,7 @@
 					</li>
 					<li>
 						<a
-							href="mailto:support@zapstore.dev"
+							href="https://signal.group/#CjQKIK20nMOglqNT8KYw4ZeyChsvA14TTcjtjuC2VF6j6nB5EhDLZ7pQHvOeopr36jq431ow"
 							class="text-muted-foreground hover:text-foreground text-sm transition-colors"
 						>
 							Support

@@ -20,6 +20,7 @@
 	let carouselApps = [];
 	let carouselLoading = true;
 	let carouselEl;
+	let showVerifyInfo = false;
 
 	function getAppUrl(app) {
 		return `/apps/${getAppSlug(app.pubkey, app.dTag)}`;
@@ -96,6 +97,41 @@
 				<span class="font-bold">Android 10+</span>
 				<span>(arm64-v8a)</span>
 			</div>
+			{#if !showVerifyInfo}
+				<div class="mt-2 text-xs text-gray-400">
+					<button
+						type="button"
+						class="underline hover:text-gray-300"
+						on:click={() => (showVerifyInfo = true)}
+					>
+						Verify Zapstore APK
+					</button>
+				</div>
+			{:else}
+				<div class="mt-2 text-sm text-gray-400">
+					<p class="mb-2">
+						For cryptographic verification <strong>
+							make sure to always check an external domain</strong
+						>.
+					</p>
+					<p class="mb-2">
+						Find file hashes and the APK certificate hash for AppVerifier on the
+						Zapstore Nostr profile here:
+						<a
+							href="https://npub.world/npub10r8xl2njyepcw2zwv3a6dyufj4e4ajx86hz6v4ehu4gnpupxxp7stjt2p8"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="underline"
+						>
+							https://npub.world/npub10r8xl2njyepcw2zwv3a6dyufj4e4ajx86hz6v4ehu4gnpupxxp7stjt2p8
+						</a>
+					</p>
+					<p class="mb-2">
+						It's recommended to open it in your favorite client and make sure
+						you are looking at the real Zapstore profile.
+					</p>
+				</div>
+			{/if}
 		</div>
 	</div>
 </section>

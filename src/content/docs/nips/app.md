@@ -60,12 +60,11 @@ Platform is defined as the specific underlying system on which the application i
 
 ### Attribution
 
-App authors MAY include their pubkeys as `p` tags and `zap` tags as per [NIP-57 - Appendix G](57.md). This is useful in the case of an author other than the one who signed the event, or multiple authors.
+App authors MAY include their pubkeys as `p` tags and `zap` tags as per [NIP-57 - Appendix G](https://nips.nostr.com/57). This is useful in the case of an author other than the one who signed the event, or multiple authors.
 
 ## Usage
 
-A kind 30063 [release artifact set](51.md) SHOULD have an `a` tag reference back to this event, alongside its references to `"e"` [file metadata](94.md) events.
-
+A kind 30063 [release artifact set](https://nips.nostr.com/51) SHOULD have an `a` tag reference back to this event, alongside its references to `"e"` [file metadata](https://nips.nostr.com/94) events.
 
 ## Example
 

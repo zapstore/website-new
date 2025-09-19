@@ -1,7 +1,6 @@
 ---
 title: File metadata
 weight: 80
-next: app-curation-set
 ---
 
 Kind: **1063** from [NIP-94](https://nips.nostr.com/94).

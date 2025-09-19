@@ -5,7 +5,7 @@ weight: 20
 
 Kind: **30267**, from [NIP-51 (PR)](https://github.com/nostr-protocol/nips/pull/1640), app curation sets.
 
-Groups together multiple [software applications](../app).
+Groups together multiple **software applications**.
 
 ## Example
 
