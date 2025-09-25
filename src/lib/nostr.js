@@ -168,14 +168,15 @@ export function renderMarkdown(markdown) {
  * @param {string[]} options.authors - Filter by specific authors
  * @param {string[]} options.dTags - Filter by specific d-tags
  * @param {number} options.until - Fetch events created before this timestamp
+ * @param {string} options.search - Free-text search (NIP-50) against app metadata/content
  * @returns {Promise<Array>} Array of app objects
  */
-export async function fetchApps({ limit = 12, authors, dTags, until } = {}) {
+export async function fetchApps({ limit = 12, authors, dTags, until, search } = {}) {
 	return new Promise((resolve, reject) => {
 		try {
 			const pool = getPool();
 
-			const filter = {
+            const filter = {
 				kinds: [32267],
 				limit
 			};
@@ -188,9 +189,14 @@ export async function fetchApps({ limit = 12, authors, dTags, until } = {}) {
 				filter['#d'] = dTags;
 			}
 
-			if (until) {
+            if (until) {
 				filter.until = until;
 			}
+
+            // NIP-50 free-text search support (relay must support it)
+            if (search && typeof search === 'string' && search.trim().length > 0) {
+                filter.search = search.trim();
+            }
 
 			console.log('Fetching apps with filter:', filter);
 

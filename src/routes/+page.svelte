@@ -20,7 +20,6 @@
 	let carouselApps = [];
 	let carouselLoading = true;
 	let carouselEl;
-	let showVerifyInfo = false;
 
 	function getAppUrl(app) {
 		return `/apps/${getAppSlug(app.pubkey, app.dTag)}`;
@@ -61,14 +60,15 @@
 			<p
 				class="text-lg sm:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed"
 			>
-				Zapstore is the first app store built on open protocols. Discover great
+				Zapstore is built on the permissionless Nostr protocol. Discover great
 				apps through your social connections&mdash;or in a completely private
-				way.
+				way. Support your favorite developers directly in bitcoin without
+				middlemen.
 			</p>
 			<div class="flex flex-col sm:flex-row gap-4 justify-center">
 				<a
 					href="/app"
-					class="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+					class="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-bold text-primary-foreground transition-all hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 				>
 					Download Zapstore
 					<Download class="ml-2 h-4 w-4" />
@@ -97,41 +97,6 @@
 				<span class="font-bold">Android 10+</span>
 				<span>(arm64-v8a)</span>
 			</div>
-			{#if !showVerifyInfo}
-				<div class="mt-2 text-xs text-gray-400">
-					<button
-						type="button"
-						class="underline hover:text-gray-300"
-						on:click={() => (showVerifyInfo = true)}
-					>
-						Verify Zapstore APK
-					</button>
-				</div>
-			{:else}
-				<div class="mt-2 text-sm text-gray-400">
-					<p class="mb-2">
-						For cryptographic verification <strong>
-							make sure to always check an external domain</strong
-						>.
-					</p>
-					<p class="mb-2">
-						Find file hashes and the APK certificate hash for AppVerifier on the
-						Zapstore Nostr profile here:
-						<a
-							href="https://npub.world/npub10r8xl2njyepcw2zwv3a6dyufj4e4ajx86hz6v4ehu4gnpupxxp7stjt2p8"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="underline"
-						>
-							https://npub.world/npub10r8xl2njyepcw2zwv3a6dyufj4e4ajx86hz6v4ehu4gnpupxxp7stjt2p8
-						</a>
-					</p>
-					<p class="mb-2">
-						It's recommended to open it in your favorite client and make sure
-						you are looking at the real Zapstore profile.
-					</p>
-				</div>
-			{/if}
 		</div>
 	</div>
 </section>
@@ -217,9 +182,9 @@
 							Support your devs
 						</h3>
 						<p class="text-gray-400 leading-relaxed text-sm">
-							Connect with your favorite developers: send them direct feedback,
-							request features and support them through micropayments, all
-							without any middlemen.
+							Connect with your favorite developers: send them feedback, request
+							features and support them directly with bitcoin zaps, all without
+							any middlemen.
 						</p>
 					</div>
 				</div>

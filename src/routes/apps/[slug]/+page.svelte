@@ -10,7 +10,6 @@
 		Globe, 
 		Star,
 		ArrowLeft,
-		Shield,
 		Tag,
 		Github,
 		Code
@@ -122,7 +121,7 @@
 					<img 
 						src={app.icon} 
 						alt={app.name} 
-						class="w-24 h-24 lg:w-32 lg:h-32 rounded-xl object-cover bg-muted flex-shrink-0"
+						class="w-24 h-24 lg:w-32 lg:h-32 rounded-xl object-cover flex-shrink-0"
 					/>
 				{:else}
 					<div class="w-24 h-24 lg:w-32 lg:h-32 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -168,10 +167,7 @@
 					<Calendar class="h-4 w-4" />
 					<span>Updated {formatDate(app.createdAt)}</span>
 				</div>
-				<div class="flex items-center gap-1">
-					<Shield class="h-4 w-4" />
-					<span>Verified</span>
-				</div>
+				
 			</div>
 
 			<!-- Action Buttons -->
@@ -280,7 +276,17 @@
 					{#if app.license}
 						<div>
 							<dt class="text-sm font-medium text-muted-foreground">License</dt>
-							<dd class="mt-1 text-sm">{app.license}</dd>
+							<dd class="mt-1 text-sm">
+								<a 
+									href={`https://spdx.org/licenses/${encodeURIComponent(app.license)}.html`}
+									target="_blank" 
+									rel="noopener noreferrer"
+									class="text-sm text-primary hover:text-primary/80 inline-flex items-center gap-1"
+								>
+									{app.license}
+									<ExternalLink class="h-3 w-3" />
+								</a>
+							</dd>
 						</div>
 					{/if}
 					{#if app.platform}

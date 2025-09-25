@@ -16,6 +16,11 @@
 	let error = null;
 	let loadingMore = false;
 	let hasMore = true;
+	let query = "";
+	let debouncedQuery = "";
+	let canSearch = false;
+	$: canSearch = query.trim().length > 0;
+	const PAGE_SIZE = 12;
 
 	async function loadApps(reset = true) {
 		try {
@@ -33,27 +38,30 @@
 				!reset && apps.length > 0
 					? Math.min(...apps.map((app) => app.createdAt))
 					: undefined;
-			const options = { limit: 12 };
+			const options = { limit: PAGE_SIZE + 1 };
 			if (until) {
 				options.until = until;
+			}
+			if (debouncedQuery && debouncedQuery.trim().length > 0) {
+				options.search = debouncedQuery.trim();
 			}
 
 			const newApps = await fetchApps(options);
 
 			if (reset) {
-				apps = newApps;
+				// Determine if we have more than one page by overfetching by 1
+				hasMore = newApps.length > PAGE_SIZE;
+				apps = newApps.slice(0, PAGE_SIZE);
 				loading = false;
 			} else {
-				// Filter out any duplicates and add new apps
+				// Filter out any duplicates and add only up to PAGE_SIZE
 				const existingIds = new Set(apps.map((app) => app.id));
 				const uniqueNewApps = newApps.filter((app) => !existingIds.has(app.id));
-				apps = [...apps, ...uniqueNewApps];
+				// Determine if there are more results by checking raw fetch size
+				hasMore = newApps.length > PAGE_SIZE;
+				const toAppend = uniqueNewApps.slice(0, PAGE_SIZE);
+				apps = [...apps, ...toAppend];
 				loadingMore = false;
-
-				// If we got fewer than the requested limit, we've reached the end
-				if (newApps.length < options.limit) {
-					hasMore = false;
-				}
 			}
 		} catch (err) {
 			console.error("Error fetching apps:", err);
@@ -73,6 +81,24 @@
 		loadApps();
 	});
 
+	function onInputQuery(e) {
+		query = e.target.value;
+	}
+
+	function onKeyDownQuery(e) {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			executeSearch();
+		}
+	}
+
+	function executeSearch() {
+		const trimmed = query.trim();
+		if (!trimmed) return;
+		debouncedQuery = trimmed;
+		loadApps(true);
+	}
+
 	function getAppUrl(app) {
 		return `/apps/${getAppSlug(app.pubkey, app.dTag)}`;
 	}
@@ -87,18 +113,18 @@
 </svelte:head>
 
 <!-- Hero Section -->
-<section class="relative overflow-hidden border-b border-border/40 bg-brand-gradient-v">
+<section
+	class="relative overflow-hidden border-b border-border/40 bg-brand-gradient-v"
+>
 	<div class="absolute inset-0 bg-brand-overlay-soft"></div>
-	<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+	<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8">
 		<div class="relative z-10 max-w-4xl mx-auto text-center">
 			<h1
 				class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-6"
 			>
 				Discover <span class="gradient-text">Apps</span>
 			</h1>
-			<p
-				class="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
-			>
+			<p class="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
 				Browse the latest releases from our relay. Every app is
 				cryptographically signed and comes from trusted sources.
 			</p>
@@ -106,9 +132,41 @@
 	</div>
 </section>
 
-<!-- Apps Grid -->
-<section class="py-4">
+<!-- Search + Apps Grid -->
+<section class="pt-2 pb-4">
 	<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+		<!-- Search bar -->
+		<div class="mb-6">
+			<div class="max-w-2xl mx-auto flex items-stretch gap-2">
+				<input
+					type="search"
+					placeholder="Search apps by name, description, or tags..."
+					class="flex-1 rounded-md border border-border bg-background px-6 py-3 text-[1rem] shadow-sm focus:outline-none focus:ring-1 focus:ring-border focus:border-muted-foreground/40 placeholder:text-gray-500 dark:placeholder:text-gray-400"
+					on:input={onInputQuery}
+					on:keydown={onKeyDownQuery}
+					value={query}
+				/>
+				<button
+					on:click={executeSearch}
+					disabled={!canSearch}
+					class="inline-flex items-center justify-center rounded-md bg-card px-4 py-2 text-sm font-medium shadow-sm transition-all hover:bg-accent hover:text-accent-foreground disabled:opacity-50 disabled:cursor-not-allowed"
+					aria-label="Search"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-6 w-6"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg
+					>
+				</button>
+			</div>
+		</div>
+
 		{#if loading}
 			<div class="flex items-center justify-center py-24">
 				<div class="text-center">
@@ -154,7 +212,7 @@
 									<img
 										src={app.icon}
 										alt={app.name}
-										class="w-12 h-12 rounded-lg object-cover bg-muted flex-shrink-0"
+										class="w-12 h-12 rounded-lg object-cover flex-shrink-0"
 										loading="lazy"
 									/>
 								{:else}

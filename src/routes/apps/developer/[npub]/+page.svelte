@@ -121,17 +121,25 @@
 					</div>
 				{/if}
 				<div class="min-w-0 flex-1 flex items-center">
-					<div>
+					<div class="min-w-0">
 						<h1 class="text-3xl lg:text-4xl font-black mb-2">
 							{developer?.displayName || developer?.name || 'Unknown Developer'}
 						</h1>
-						<p class="text-muted-foreground font-mono text-sm">{npub}</p>
+						<p class="text-muted-foreground font-mono text-sm truncate" title={npub}>{npub}</p>
+						<a
+							href={`https://npub.world/${npub}`}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-xs underline text-muted-foreground mt-1 inline-block"
+						>
+							View on npub.world
+						</a>
 					</div>
 				</div>
 			</div>
 			
 			{#if developer?.about}
-				<div class="text-muted-foreground mb-6 leading-relaxed">
+				<div class="text-muted-foreground mb-6 leading-relaxed developer-about">
 					{developer.about}
 				</div>
 			{/if}
@@ -173,7 +181,7 @@
 										<img 
 											src={app.icon} 
 											alt={app.name} 
-											class="w-12 h-12 rounded-lg object-cover bg-muted flex-shrink-0"
+							class="w-12 h-12 rounded-lg object-cover flex-shrink-0"
 											loading="lazy"
 										/>
 									{:else}
@@ -216,6 +224,7 @@
 <style>
 	.line-clamp-2 {
 		display: -webkit-box;
+		line-clamp: 2;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
@@ -223,8 +232,25 @@
 	
 	.line-clamp-3 {
 		display: -webkit-box;
+		line-clamp: 3;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}
-</style> 
+
+	/* Ensure long words/URLs wrap; clamp on small screens */
+	.developer-about {
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
+
+	@media (max-width: 640px) {
+		.developer-about {
+			display: -webkit-box;
+			line-clamp: 4;
+			-webkit-line-clamp: 4;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+	}
+</style>

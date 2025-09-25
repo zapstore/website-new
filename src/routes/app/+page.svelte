@@ -1,6 +1,8 @@
 <script>
 	import { Download, Smartphone, Shield } from "lucide-svelte";
 	import { assets } from "$app/paths";
+
+	let showVerifyInfo = false;
 </script>
 
 <svelte:head>
@@ -43,6 +45,56 @@
 							Get started guide
 						</a>
 					</div>
+				<div class="mt-4 flex items-center justify-center lg:justify-start gap-2 text-xs text-gray-400">
+					<span>Available on: </span>
+					<svg
+						class="w-4 h-4"
+						viewBox="0 0 32 32"
+						fill="currentColor"
+						aria-hidden="true"
+					>
+						<path
+							d="M23.35 12.653l2.496-4.323c0.044-0.074 0.070-0.164 0.070-0.26 0-0.287-0.232-0.519-0.519-0.519-0.191 0-0.358 0.103-0.448 0.257l-0.001 0.002-2.527 4.377c-1.887-0.867-4.094-1.373-6.419-1.373s-4.532 0.506-6.517 1.413l0.098-0.040-2.527-4.378c-0.091-0.156-0.259-0.26-0.45-0.26-0.287 0-0.519 0.232-0.519 0.519 0 0.096 0.026 0.185 0.071 0.262l-0.001-0.002 2.496 4.323c-4.286 2.367-7.236 6.697-7.643 11.744l-0.003 0.052h29.991c-0.41-5.099-3.36-9.429-7.57-11.758l-0.076-0.038zM9.098 20.176c-0 0-0 0-0 0-0.69 0-1.249-0.559-1.249-1.249s0.559-1.249 1.249-1.249c0.69 0 1.249 0.559 1.249 1.249v0c-0.001 0.689-0.559 1.248-1.249 1.249h-0zM22.902 20.176c-0 0-0 0-0 0-0.69 0-1.249-0.559-1.249-1.249s0.559-1.249 1.249-1.249c0.69 0 1.249 0.559 1.249 1.249v0c-0.001 0.689-0.559 1.248-1.249 1.249h-0z"
+						></path>
+					</svg>
+					<span class="font-bold">Android 10+</span>
+					<span>(arm64-v8a)</span>
+				</div>
+				{#if !showVerifyInfo}
+					<div class="mt-2 text-xs text-gray-400 text-center lg:text-left">
+						<button
+							type="button"
+							class="underline hover:text-gray-300"
+							on:click={() => (showVerifyInfo = true)}
+						>
+							Verify Zapstore APK
+						</button>
+					</div>
+				{:else}
+					<div class="mt-2 text-sm text-gray-400">
+						<p class="mb-2">
+							For cryptographic verification <strong>
+								make sure to always check an external domain</strong
+								>.
+						</p>
+						<p class="mb-2">
+							Find file hashes and the APK certificate hash for AppVerifier on the
+							Zapstore Nostr profile here:
+							<a
+								href="https://npub.world/npub10r8xl2njyepcw2zwv3a6dyufj4e4ajx86hz6v4ehu4gnpupxxp7stjt2p8"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="underline"
+							>
+								https://npub.world/npub10r8xl2njyepcw2zwv3a6dyufj4e4ajx86hz6v4ehu4gnpupxxp7stjt2p8
+							</a>
+						</p>
+						<p class="mb-2">
+							It's recommended to open it in your favorite client and make sure
+							you are looking at the real Zapstore profile.
+						</p>
+					</div>
+				{/if}
 					<img
 						src={`${assets}/images/qr.png`}
 						alt="QR code for https://zapstore.dev/app"
